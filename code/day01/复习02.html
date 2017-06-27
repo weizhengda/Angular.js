@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <!--
+
+    MVVM
+
+
+    model 改变会影响视图view  view视图改变影响model
+
+    -->
+</head>
+    <body ng-app="myApp">
+
+
+            <div ng-controller="firstController">
+                <input type="text" ng-model="username" ng-change="getData()"/>
+
+
+                <br/>
+
+                {{username}}
+
+                <br/><br/>
+
+                <button ng-click="getName()">按钮</button>
+
+                <br/>
+
+                {{1+1}}
+
+                <br/>
+
+
+                <ul>
+                    <li ng-repeat="item in list">
+
+                        {{item}}
+                    </li>
+                </ul>
+            </div>
+
+
+
+    </body>
+
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+//    $scope局部作用域  是视图和控制器的桥梁
+    app.controller('firstController',function($scope,$interval){
+
+        $scope.username='zhangsan';
+
+
+        $scope.getName=function(){
+            console.log($scope.username);
+        }
+
+
+
+        setTimeout(function(){
+           $scope.$apply(function(){
+
+               $scope.username='lisi';
+           })
+        },2000);
+
+        //getData  ng-change监听数据改变
+        $scope.getData=function(){
+
+           // console.log($scope.username);
+        }
+
+        $scope.$watch('username',function(newValue,oldValue){
+
+            console.log(newValue+'---'+oldValue);
+
+
+        })
+
+      //  $interval.cancel() /*清除定时器*/
+
+        $scope.list=['张三','李四','王五'];
+
+
+
+
+
+
+
+    })
+
+
+
+</script>

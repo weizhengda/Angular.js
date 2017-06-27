@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <!--
+    MVVM
+    model 改变会影响视图view  view视图改变影响model
+    -->
+</head>
+<body ng-app="myApp">
+
+
+<div ng-controller="firstController">
+    姓名:  <input type="text" name="username" ng-model="user.username"/>
+    <br/> <br/>
+    年龄:  <input type="text" name="age" ng-model="user.age"/>
+    <br/>
+    <br/>
+    <button ng-click="addData()">+增加</button>
+    <br/>
+    <ul>
+        <li ng-repeat="(key,item) in userlist track by $index">
+            用户名:{{item.username}}---{{item.age}}  ---- <button ng-click="delData(key)">删除</button>---- <button ng-click="editdata(key)">修改</button>
+        </li>
+    </ul>
+
+
+    <div style="width:400px; height:400px; border: 1px solid #000;" ng-if="isEdit">
+
+        姓名:  <input type="text" name="username" ng-model="usereidt.username"/>
+        <br/> <br/>
+        年龄:  <input type="text" name="age" ng-model="usereidt.age"/>
+        <br/>
+        <br/>
+        <button ng-click="editSaveData()">+修改</button>
+    </div>
+</div>
+
+</body>
+
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    //    $scope局部作用域  是视图和控制器的桥梁
+    app.controller('firstController',function($scope,$interval){
+
+        $scope.user={
+            username:'',
+            age:''
+        }
+        /*判断localstorage 有没有数据*/
+
+        var list =JSON.parse(localStorage.getItem('userlist'));
+
+       // console.log(list);
+        if(list){   /*只有数组才有长度*/
+
+            $scope.userlist=list;
+        }else{
+            $scope.userlist=[];  /*定义一个空数组保存每次增加的数据*/
+        }
+
+        //getData  ng-change监听数据改变
+        $scope.addData=function(){
+            $scope.userlist.push({
+                username:$scope.user.username,
+                age:$scope.user.age
+            });
+
+            /*写入保存*/
+            localStorage.setItem('userlist',JSON.stringify($scope.userlist));
+
+
+        }
+
+        //删除数据
+
+        $scope.delData=function(index){
+
+            console.log(index);
+            $scope.userlist.splice(index,1);
+
+
+            /*删除保存*/
+            localStorage.setItem('userlist',JSON.stringify($scope.userlist));
+
+        }
+
+
+
+        $scope.usereidt={
+            username:'',
+            age:'',
+            index:''
+        };
+        $scope.isEdit=false;
+        //修改数据
+        $scope.editdata=function(index){
+
+            //alert(index)
+            $scope.isEdit=true;
+            var list =JSON.parse(localStorage.getItem('userlist'));
+
+            list.forEach(function(value,key){
+                if(key==index){
+                    $scope.usereidt={
+                        username:value.username,
+                        age:value.age,
+                        index:index
+
+                    }
+                }
+            })
+
+        }
+
+
+        $scope.editSaveData=function(){
+
+            var index=$scope.usereidt.index;
+            var list =JSON.parse(localStorage.getItem('userlist'));
+
+            list.forEach(function(value,key){
+                if(key==index){
+                    list[key]={
+                        username:$scope.usereidt.username,
+                        age:$scope.usereidt.age
+                    }
+                }
+            })
+            //获取数据
+            $scope.userlist=list;
+            //保存修改
+            localStorage.setItem('userlist',JSON.stringify(list));
+
+            $scope.isEdit=false;
+
+
+        }
+
+
+
+    })
+
+
+
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+        .button{
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            color: #fff;
+            line-height: 30px;
+            background: red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+
+    <div ng-controller="firstController">
+        {{name}}
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    //$timeout  angularjs内置的定时器服务，直接可以改变$scope绑定的值
+    // 如果我们用js提供的setTimeout就得用$scope.$apply(fn(){})
+    app.controller('firstController',function($scope,$timeout){
+
+        $scope.name='张三';
+        /*
+         * AngularJS外部的控制器（DOM事件、外部的回调函数如jQuery 事件等）调用了AngularJS函数之后，必须调用$apply。
+         * 在这种情况下，你需要命令AngularJS刷新自已（模型、视图等），$apply就是用来做这件事情的。
+         * */
+//        setTimeout(function(){
+//            $scope.$apply(function(){
+//
+//                $scope.name='张三.......';
+//            })
+//
+//        },1000)
+
+
+        $timeout(function(){
+            $scope.name='张三.......';
+        },1000);
+
+
+    
+
+
+
+    })
+</script>

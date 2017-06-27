@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+        <div ng-controller="firstController">
+            {{name}}
+            {{age}}
+        </div>
+        <div ng-controller="secondController">
+            {{name}}
+            {{age}}
+            {{sex}}
+        </div>
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.run(function($rootScope){    /*module 运行就会加载 run方法*/
+
+        $rootScope.name='张三';
+
+    });
+
+    app.controller('firstController',function($scope,$rootScope){
+
+        $rootScope.age='20';
+    });
+
+    app.controller('secondController',function($scope){
+        $scope.sex='男';
+
+    });
+
+
+
+
+</script>

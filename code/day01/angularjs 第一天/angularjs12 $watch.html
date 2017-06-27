@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="shopController">
+            数量: <input type="text" ng-model="product.num"/><br/><br/>
+            单价: <input type="text" ng-model="product.price"/><br/><br/>
+            运费:{{product.fee}}
+
+            <br/><br/>
+
+            不包含运费总价:{{product.num*product.price}}
+
+            <br/><br/>
+            包含运费总价:{{allPriceFee()}}
+
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+/*
+
+
+ 需求是：数量*单价的金额>200免运费
+
+ 1.商品数量
+
+ 2.单价
+
+ 3.运费   10元
+
+ 4.不加运费的总价
+
+ 5.加运费总价
+
+
+ 如果 ： 不加运费的总价>=200    免运费
+
+ 加运费总价==不加运费总价
+
+ 如果：不加运费的总价<200    不免运费
+
+ 加运费总价==不加运费总价+运费
+
+
+
+ * */
+
+
+
+
+    var app=angular.module('myApp',[]);
+
+
+    app.controller('shopController',function($scope){
+
+
+        $scope.product={
+            num:'',
+            price:10,
+            fee:10
+        }
+
+        $scope.allPriceNoFee=function(){   /*获取总结 不包括运费*/
+            return $scope.product.num* $scope.product.price;
+
+        }
+
+        $scope.allPriceFee=function(){
+
+
+
+
+            if($scope.allPriceNoFee()>=200){
+
+                $scope.product.fee=0;
+            }else{
+
+                $scope.product.fee=10;
+            }
+
+            return $scope.product.num* $scope.product.price+$scope.product.fee
+        }
+
+    })
+
+
+
+</script>

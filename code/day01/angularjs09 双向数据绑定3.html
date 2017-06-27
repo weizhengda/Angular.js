@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <style>
+        .button{
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            color: #fff;
+            line-height: 30px;
+            background: red;
+            font-size: 20px;
+        }
+    </style>
+
+</head>
+
+
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+
+        用户名: <input type="text" name="username" ng-model="username"/>
+        <br/>
+        <br/>
+        密　码: <input type="password" name="password" ng-model="password"/>
+
+        <br/>
+        <br/>
+
+        <button class="button" ng-click="login()">登录</button>
+
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope){
+
+        $scope.login=function(){
+            console.log($scope.username);
+            console.log($scope.password);
+
+        }
+
+
+    })
+</script>

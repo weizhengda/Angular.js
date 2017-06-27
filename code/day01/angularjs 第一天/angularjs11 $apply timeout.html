@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+        .button{
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            color: #fff;
+            line-height: 30px;
+            background: red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+        <div ng-controller="firstController">
+            {{name}}
+
+            <button ng-click="setData()">改变name的值</button>
+        </div>
+</body>
+
+</html>
+
+<script>
+    /*
+     * AngularJS外部的控制器（DOM事件、外部的回调函数如jQuery 事件等）调用了AngularJS函数之后，必须调用$apply。
+     * 在这种情况下，你需要命令AngularJS刷新自已（模型、视图等），$apply就是用来做这件事情的。
+     * */
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope){
+
+        $scope.name='张三';
+
+
+        setTimeout(function () {
+//            $scope.name='李四';
+
+            $scope.$apply(function(){
+
+                $scope.name='李四';
+            })
+
+        },1000)
+
+
+        $scope.setData=function(){
+
+            $scope.name='李四';
+        }
+
+    })
+</script>

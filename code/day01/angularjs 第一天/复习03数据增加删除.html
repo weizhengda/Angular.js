@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <!--
+
+    MVVM
+
+    model 改变会影响视图view  view视图改变影响model
+
+    -->
+</head>
+    <body ng-app="myApp">
+
+            <div ng-controller="firstController">
+                  姓名:  <input type="text" name="username" ng-model="user.username"/>
+                    <br/> <br/>
+                  年龄:  <input type="text" name="age" ng-model="user.age"/>
+
+
+                <br/>
+                <br/>
+                <button ng-click="addData()">+增加</button>
+
+
+                <br/>
+
+                <ul>
+                    <li ng-repeat="item in userlist">
+
+
+                        用户名:{{item.username}}---{{item.age}}
+                    </li>
+
+                </ul>
+            </div>
+
+
+
+    </body>
+
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+//    $scope局部作用域  是视图和控制器的桥梁
+    app.controller('firstController',function($scope,$interval){
+
+         $scope.user={
+            username:'',
+            age:''
+
+         }
+        $scope.userlist=[];  /*定义一个空数组保存每次增加的数据*/
+
+        //getData  ng-change监听数据改变
+        $scope.addData=function(){
+            console.log(1);
+            $scope.userlist.push({
+                username:$scope.user.username,
+                age:$scope.user.age
+            })
+
+        }
+
+
+
+
+
+
+
+
+
+    })
+
+
+
+</script>

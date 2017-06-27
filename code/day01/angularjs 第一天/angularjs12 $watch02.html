@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+
+</head>
+<body ng-app="myApp">
+
+  <div ng-controller="firstController">
+      <!--<input type="search" ng-model="keywords" ng-change="getData()"/>-->
+
+
+
+      <input type="text" ng-model="username"/>
+
+  </div>
+</body>
+</html>
+
+<script>
+    var app=angular.module('myApp',[]);
+    app.controller('firstController',function($scope){
+
+
+//        /*监听 keywords*/
+//        $scope.keywords='';
+//        $scope.getData=function(){
+//
+//            console.log($scope.keywords);
+//
+//        };
+
+        /*监听 username*/
+
+
+        $scope.$watch('username',function(newValue,oldValue){
+            console.log(newValue+"--"+oldValue);
+
+        })
+
+
+
+
+
+
+
+    })
+</script>

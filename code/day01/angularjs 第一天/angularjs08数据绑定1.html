@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <style>
+        .button{
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            color: #fff;
+            line-height: 30px;
+            background: red;
+            font-size: 20px;
+        }
+    </style>
+
+</head>
+
+
+<!--angularjs 也是MVVM框架-->
+
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            <input type="text"  ng-model="name"/>
+
+            <br/>
+            <br/>
+            <br/>
+
+            {{name}}
+
+
+            <br/>
+            <br/>
+            <button class="button" ng-click="setName()">设置按钮</button>
+            <br/> <br/>
+            <button class="button" ng-click="getName()">获取按钮</button>
+        </div>
+
+</body>
+
+
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope){
+
+        $scope.name='zhangsna';
+        //绑定方法
+
+        $scope.setName=function(){  /*设置*/
+
+        //    alert('111');
+
+            $scope.name='我是ng-click改变后的name值';
+        }
+
+        $scope.getName=function(){  /*获取*/
+
+            console.log($scope.name);
+        }
+    })
+
+
+</script>

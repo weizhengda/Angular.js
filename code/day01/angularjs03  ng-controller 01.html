@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello angular</title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+
+     <div ng-controller="firstController">
+            {{name}}
+
+     </div>
+</body>
+
+</html>
+
+<script>
+    /*
+     1.通过ng-app定义myApp模块
+
+     2.得通过angular.module('myApp',[])  实现
+
+     两个参数: 1.模块名称    2.依赖注入的让他模块
+     * */
+    var app=angular.module('myApp',[]);
+
+
+//    $scope   1.局部作用域    2.理解成  控制器和视图的桥梁
+    app.controller('firstController',function($scope){
+
+//        var name='张三';  //没法绑定数据
+
+        $scope.name='张三';
+
+        //var list=['张三',['历史'],'王五'];
+
+
+    })
+
+
+
+</script>
