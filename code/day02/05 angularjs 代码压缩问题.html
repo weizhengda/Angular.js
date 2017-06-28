@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+            {{msg}}
+        </div>
+
+</body>
+
+
+</html>
+
+<script>
+    /*实现 ng-app里面定义的  myApp
+     *
+     * 三个参数
+     * 1.ng-app里面定义的  myApp
+     * 2. 默认[]   表示依赖哪些   module
+     * 3.config  配置  是一个方法
+      *
+      * */
+   /*定义  module*/
+    var app= angular.module('myApp',[]);
+
+    app.controller('firstController',['$scope',function($sp) {
+
+        $sp.msg = 'zhangsan';
+    }]);
+
+
+
+    /*
+    * console.log(app);
+    * $scope 控制器和模板之间的桥梁
+    * */
+
+
+</script>

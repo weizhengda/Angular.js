@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+            {{msg}}
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    app.controller('firstController',['$scope',function($a){
+
+        $a.msg='21313'
+
+    }])
+
+
+
+
+
+
+</script>

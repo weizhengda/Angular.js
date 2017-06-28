@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>http</title>
+    <script type="text/javascript" src="angular.min_1.6.2.js"></script>
+</head>
+<body ng-app="myApp">
+<!--ng-repeat循环数据-->
+    <div ng-controller="firstController">
+            <ul>
+                <li ng-repeat="item in items">
+                {{item.title}}
+                </li>
+            </ul>
+    </div>
+</body>
+</html>
+<script>
+    var app=angular.module('myApp',[]);
+////
+    app.config(function($sceDelegateProvider,$sceProvider){
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+
+            '*://www.phonegap100.com/**'
+        ]);
+//       $sceProvider.enabled(false);  /*不开启url白名单检测*/
+    })
+    app.controller('firstController',function($scope,$http,$sce){
+        //http://www.phonegap100.com/appapi.php?a=getPortalList&catid=1&callback=JSON_CALLBACK
+        $http.jsonp(
+                'http://www.phonegap100.com/appapi.php',
+                {"params":{"a":"getPortalList","catid":1}},
+                {"callback":'JSON_CALLBACK'}
+        ).then(
+                function(data){
+                    console.log(data);
+                    $scope.items = data.result;
+                },function(error){
+                    console.log(error);
+
+                }
+        );
+//        $http.jsonp('http://www.phonegap100.com/appapi.php?a=getPortalList&catid=1&page=1&callback=JSON_CALLBACK').then(function(data){
+//
+//            console.log(data);
+//            $scope.items = data.result;
+//        })
+
+
+    })
+
+</script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <script type="text/javascript" src="js/mousedown.js"></script>
+
+
+    <script>
+
+//        function run(){    不建议用这样的写法
+//            alert();
+//        }
+
+    </script>
+
+
+</head>
+<body ng-app="myApp">
+
+    <div ng-controller="firstController">
+        {{name}}
+
+        <div ng-click="run()">
+            鼠标点击的事件
+        </div>
+
+        <!--ng-change();-->
+
+        <br/>
+        <hr/>
+
+        <!--<input type="checkbox" ng-model="check"/>-->
+
+        <!--<select>-->
+            <!--<option value="aaa">aaaa</option>-->
+
+            <!--<option value="bbb">bbb</option>-->
+
+            <!--<option value="ccc" ng-selected="check">ccc</option>-->
+        <!--</select>-->
+
+
+
+
+
+
+        <!--selected  默认被选中-->
+
+        <!--checked  多选框 或者单选框-->
+
+
+        <!--<input type="checkbox" ng-model="check"/>-->
+
+        <!--<select>-->
+            <!--<option value="aaa">aaaa</option>-->
+
+            <!--<option value="bbb" selected>bbb</option>-->
+
+            <!--<option value="ccc" ng-selected="select">ccc</option>-->
+        <!--</select>-->
+
+      
+
+
+
+        <input type="text" name="username" value="复制一下试试" ng-copy="copy()"/>
+
+
+        <!--<input type="text" ng-change="run()"/>-->
+
+
+        <hr/>
+
+        <br/>
+
+        <div ng-bind="name"></div>
+
+        <!--ng-cloak   可以了解一下  防止 {} 显示出来   和ng-bind的功能基本一样-->
+
+        <div ng-cloak>{{name}}</div>
+
+
+
+
+        <div ng-non-bindable> {{age}}</div>
+        <hr/>
+
+        <input type="text" ng-disabled="true"/>
+
+
+        <input value="10s" type="button" ng-disabled="true"/>
+
+    </div>
+
+</body>
+
+
+</html>

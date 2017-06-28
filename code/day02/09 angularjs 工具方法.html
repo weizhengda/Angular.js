@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+        <div ng-controller="firstController">
+                {{test}}
+
+
+
+        </div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+<script>
+
+var app=angular.module('myApp',[]);
+app.controller('firstController',['$scope',function($scope){
+    $scope.name='张三';
+
+
+    $scope.test='hello';
+
+
+    console.log(angular.isArray($scope.name));
+
+
+    console.log(angular.uppercase($scope.test));
+
+    $scope.test=angular.uppercase($scope.test);
+
+
+//
+//    var arr=['张三','李四','王五'];
+//
+//    for(var i=0;i<arr.length;i++){
+//
+//        console.log(arr[i]);
+//    }
+
+        var arr1=[
+            {'name':'张三'},
+            {'name':'李四'},
+            {'name':'王五'}
+        ];
+//
+//
+//        for(var i=0;i<arr1.length;i++){
+//
+//            console.log(arr1[i].name);
+//        }
+//
+
+//es5
+//        arr1.forEach(function(value,key){
+//
+//            console.log(key+'----'+value.name);
+//
+//        })
+
+
+        angular.forEach(arr1,function(value,key){
+
+            console.log(key+'----'+value.name);
+        })
+
+
+
+
+}]);
+
+
+
+</script>
+
+

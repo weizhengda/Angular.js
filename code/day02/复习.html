@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-repeat</title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+
+        .red{
+            color:red;
+        }
+    </style>
+
+</head>
+<body ng-app="myApp">
+<!--ng-repeat循环数据-->
+<div ng-controller="firstController">
+
+    <ul>
+        <li ng-repeat="item in list" ng-class="{'red':true}">
+            {{item}}
+        </li>
+    </ul>
+
+    <br/>
+
+
+    <br/>
+
+    <ul>
+        <li ng-repeat="item in list" ng-class="{'red':$index==0}">
+            {{$index}}--{{item}}
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>
+<script>
+    var app=angular.module('myApp',[]);
+    app.controller('firstController',function($scope){
+
+        $scope.list=['张三','李四','王五'];
+
+
+
+
+
+    })
+
+</script>

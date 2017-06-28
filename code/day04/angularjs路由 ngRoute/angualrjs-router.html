@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-route.min.js"></script>
+
+<!--ui-router-->
+
+
+    <style>
+        .header{
+            width: 1000px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+        }
+
+        .content{
+            width: 1000px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+
+        .list li{
+            line-height: 40px;
+        height: 40px;
+        }
+
+
+    </style>
+    <!--
+
+        1.引入js  angular-route.min.js
+        2.在html页面中定义  ng-view  显示我们模板里面动态加载的数据
+        3.var app=angular.module('myApp',['ngRoute']);   依赖注入
+
+
+
+        //根据不同的路由加载不同的控制器和模板
+
+        //加载出来的模板和控制回头放在视图里面
+
+
+    -->
+</head>
+<body ng-app="myApp">
+
+
+        <div class="header">
+
+            <a href="#home">首页</a>
+
+            <a href="#news">新闻</a>
+
+        </div>
+
+
+        <div  ng-view>  <!--动态加载的模板控制解析后放在这个里面-->
+
+        </div>
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',['ngRoute']);
+
+    //$routeProvider
+    app.config(function($routeProvider){
+
+        $routeProvider.when('/home',{
+            templateUrl:'templates/home.html',  /*加载的模板*/
+
+            controller:'HomeController'
+        }).when('/news',{
+
+            templateUrl:'templates/news.html',  /*加载的模板*/
+
+            controller:'NewsController'
+        }).when('/newscontent/:aid',{
+
+            templateUrl:'templates/newscontent.html',  /*加载的模板*/
+
+            controller:'NewsConController'
+        }).otherwise({  /*找不到路由的时候动态跳转的页面*/
+            redirectTo:'/home'
+        })
+    })
+
+
+    app.controller('HomeController',function($scope){
+
+        $scope.msg='这是home页面'
+    })
+
+
+    app.controller('NewsController',function($scope){
+
+        $scope.msg='这是NewsController页面';
+
+        $scope.list=['1','2','3']
+    })
+
+    app.controller('NewsConController',function($scope,$routeParams){
+
+        console.log($routeParams);
+
+        $scope.aid=$routeParams.aid;
+
+    })
+
+
+</script>

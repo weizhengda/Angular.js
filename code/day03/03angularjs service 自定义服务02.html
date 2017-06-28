@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+        <div ng-controller="firstController">
+                {{msg}}
+        </div>
+
+        <div ng-controller="secondController">
+            {{msg}}
+        </div>
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,UserService,$Storage){
+
+        $scope.msg='this is a msg'
+
+        console.log(UserService);
+
+        UserService.setName('张三');
+
+        console.log(UserService.getName());
+
+
+        /*写入数据*/
+        $Storage.set('user_info','1627班');
+    });
+
+
+
+    app.controller('secondController',function($scope,$Storage){
+
+        /*获取数据*/
+        console.log($Storage.get('user_info'));
+    });
+
+
+
+    /*设置数据  获取数据*/
+
+
+    app.service('UserService',function(){
+
+        var app={};
+        var _name='';
+        app.setName=function(name){
+            _name=name;
+        }
+        app.getName=function(){
+
+            return _name;
+        }
+
+        return app;
+
+    })
+
+    app.service('$Storage',function(){
+
+        return {
+            set:function(key,value){
+
+                localStorage.setItem(key,JSON.stringify(value));
+            },
+            get:function(key){
+                return JSON.parse(localStorage.getItem(key));
+            },
+            remove:function(key){
+                localStorage.removeItem(key)
+
+            }
+        }
+    })
+
+
+    /*Storage*/
+
+
+
+
+
+
+
+
+</script>

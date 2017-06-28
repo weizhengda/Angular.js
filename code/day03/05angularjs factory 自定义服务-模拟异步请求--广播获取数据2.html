@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+
+        {{msg}}
+
+
+
+        <!--<button ng-click="getData()">请求数据</button>-->
+
+        <ul>
+            <li ng-repeat="item in list">
+                {{item.title}}
+            </li>
+        </ul>
+
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    /*业务逻辑的处理*/
+    app.controller('firstController',function($scope,NewsService){
+
+        $scope.list='';
+
+        NewsService.requestListData();  /*请求数据*/
+        //等待接收广播数据
+        $scope.$on('to-news',function(event,data){
+//            console.log(event);
+            console.log(data);
+
+        })
+
+    })
+
+    //服务里面没法以来注入$scope
+
+    //$rootScope是全局作用域   $scope局部作用域
+
+
+
+    //$http系统内置的服务
+
+    app.factory('NewsService',function($http,$rootScope){
+
+        var list=[];
+
+        return {
+            requestListData:function(){
+                /*去服务器请求数据   异步*/
+               //http://www.phonegap100.com/appapi.php?a=getPortalList&catid=1&page=1&callback=JSON_CALLBACK
+                var url="http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1&callback=JSON_CALLBACK";
+                $http.jsonp(url).then(function(data){
+                    list=data;
+
+
+                    $rootScope.$broadcast('to-news',list);   /*拿到数据广播数据*/
+
+
+                })
+            }
+
+        }
+    })
+
+
+</script>

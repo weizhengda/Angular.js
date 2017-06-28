@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+        body{
+            background: #eee;
+        }
+
+        .box{
+            background: red;
+            width: 200px;
+            height: 200px;
+        }
+
+    </style>
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+
+
+            <br/>
+
+            <div ng-bind-html="h2"></div>
+
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    //$sce也可以解析html代码
+
+    app.controller('firstController',function($scope,$sce){
+
+        var h2='<h2>这是一个h2</h2>';
+        $scope.h2=$sce.trustAsHtml(h2);   /*简写htmldiam*/
+
+    })
+
+</script>

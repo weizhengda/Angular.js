@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+        <script src="http://cdn.bootcss.com/angular.js/1.2.9/angular-route.min.js"></script>
+        <script src="http://cdn.bootcss.com/angular.js/1.2.9/angular-animate.min.js"></script>
+        <style>
+            .box{ background:#eee; transition:2s all; position: absolute;}
+
+            .box.ng-enter{
+                opacity: 0;
+            }
+            .box.ng-enter-active{
+                opacity: 1;
+            }
+            .box.ng-leave{
+                opacity: 1;
+            }
+            .box.ng-leave-active{
+                opacity: 0;
+            }
+        </style>
+    </head>
+    <body>
+      <div ng-app="myApp">
+          <div class="header">
+              <a href="#div1">第一个div</a>
+              <a href="#div2">第二个div</a>
+              <a href="#div3">第三个div</a>
+              <a href="#content/13/5">点击去内容12</a>
+          </div>
+          <div ng-view class="box"></div>
+
+      </div>
+      <script type="text/javascript">
+          var app = angular.module("myApp", ['ngRoute','ngAnimate']);
+          app.run(['$rootScope',function($rootScope){
+
+              $rootScope.$on('$routeChangeStart',function(event,current,pre){
+
+                  console.log('event');
+                  console.log(event);
+
+                  console.log('current');
+                  console.log(current);
+
+                  console.log('pre');
+                  console.log(pre);
+
+
+              });
+
+          }]);
+
+
+
+          app.config(['$routeProvider',function($routeProvider){
+
+              $routeProvider
+                      .when('/div1',{
+                          templateUrl : 'template1.html',
+                          controller : 'div1Controller'
+                      })
+                      .when('/div2',{
+                          template : '<p>这是div2{{text}}</p>',
+                          controller : 'div2Controller'
+                      })
+                      .when('/div3',{
+                          template : '<p>这是div3{{text}}</p>',
+                          controller : 'div3Controller'
+                      })
+                      .when('/content/:id/:cateid',{
+                          template : '<p>这是content{{id}}</p>',
+                          controller : 'div4Controller'
+                      })
+                      .otherwise({
+                          redirectTo : '/div1'
+                      });
+
+          }]);
+
+          app.controller('div1Controller',function($scope){
+              $scope.text='phonegap中文网 外部页面';
+          });
+
+          app.controller('div2Controller',function($scope){
+              $scope.text='div2Controller';
+          });
+          app.controller('div3Controller',function($scope){
+              $scope.text='div3Controller';
+          });
+
+          app.controller('div4Controller',['$scope','$routeParams',function($scope,$routeParams){
+              console.log($routeParams);
+              $scope.id=$routeParams.num;
+
+              $scope.text='div4Controller';
+          }]);
+
+
+
+
+         /*
+         *  app.controller('firstController',function($scope){
+          //$scope.text='phonegap中文网';
+          });
+         * */
+      </script>
+       
+    </body>
+</html>

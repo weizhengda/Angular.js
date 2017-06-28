@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script>
+
+        function User(){
+            var _name='';
+            this.setName=function(name){
+                _name=name;
+            }
+            this.getName=function(){
+                return _name;
+            }
+        }
+
+        var u=new  User();
+
+
+        u.setName('张三');
+
+        alert(u.getName());
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

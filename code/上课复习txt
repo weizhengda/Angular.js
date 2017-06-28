@@ -1,0 +1,228 @@
+1.下载angularjs
+
+    docs.angularjs.org   官网上面下载
+
+    npm install angularjs        下载的时候先cd到要下载的目录     必须安装nodejs
+
+
+    npm info angularjs 看版本号
+
+
+
+2.	什么是Angularjs?
+
+    AngularJS最初由Misko Hevery 和Adam Abrons于2009年开发，后来成为了Google公司的项目。
+    AngularJS弥补了HTML在构建应用方面的不足，其通过使用标识符（directives）结构，来扩展Web应用中的HTML词汇，
+    使开发者可以使用HTML来声明动态内容，从而使得Web开发和测试工作变得更加容易。
+
+
+
+
+自己理解：
+
+    谷歌公司    扩展了html标签实现一些自定义功能，AngularJS弥补了HTML在构建应用方面的不足
+
+
+    谷歌公司的一个mvc的一个js框架
+
+
+
+
+
+3. 主要特性如下：
+
+    1.angularjs是一个MVC框架
+    2.模块化框架与并且有依赖注入
+    3.双向数据绑定
+    4.指令与UI控件    自定义指令扩展html标签
+
+
+4.angularj
+ 也是MVVM框架
+
+1.ng-app  定义模块  告诉angualrjs 这个里面的代码要被angularjs解析
+
+2.ng-controller  定义控制器
+
+3.绑定文本数据  ng-bind              {{name}}    <div ng-bind="name"></div>
+
+
+4.绑定html
+
+    1.ngSanitize(插件 引入  依赖注入)
+
+
+    2. $sce服务     var h2='<h2>这是一个h2</h2>';     $scope.h2=$sce.trustAsHtml(h2)
+
+
+
+    3. ng-bind-html
+
+
+5.$scope     $rootScope
+
+    $scope 控制器和视图的桥梁  局部作用域
+
+    $rootScope 全局作用域
+
+6. ng-repeat 循环数据
+
+   <ul>
+        <li ng-repeat="item in list">{{item}}</li>
+    </ul>
+
+    <ul>
+          <li ng-repeat="item in list">{{$index}}---{{item}}</li>
+     </ul>
+
+
+      <ul>
+           <li ng-repeat="(key,item) in list">{{key}}---{{item}}</li>
+      </ul>
+
+
+7.  AngularJS外部的控制器（DOM事件、外部的回调函数如jQuery 事件等）调用了AngularJS函数之后，
+
+要改变$scope上面绑定的数据的时候我们要
+
+    $scope.$apply(function(){
+
+     })
+
+8.
+    监听文本框变化   ng-change=""
+
+
+    $scope.$watch('username',function(newValue,oldValue){
+
+    })
+
+
+    监听方法变化   注意：$scope.getData的括号
+    $scope.$watch($scope.getData,function(newValue,oldValue){
+
+    })
+
+
+9.$timeout  $interval     $interval.cancel();清除定时器
+
+
+
+10. ng-click="getdata()"    ng-change="getData()"  文本框改变
+
+
+11.请求数据     get    post   jsonp   看文档      $http
+
+
+
+
+12.模块依赖                var app=angular.module('myApp',['myApp1']);
+
+
+
+
+
+
+
+13.
+
+angular.forEach(数组,function(value,key){
+
+})
+
+
+数组.forEach(function(value,key){
+
+ })
+
+
+ 14.ng-if="true"    dom操作         ng-show="true" 显示隐藏
+
+
+
+
+
+ 15.ng-src="{{src}}"         src="{{src}}"   调用图片注意
+
+
+
+    <img ng-src="{{url}}" alt="" onerror="javascript:this.src='submail700.jpg';" />
+
+
+
+     img src="很小的图片"  data-src="原图"
+
+
+    html5中自定义属性
+
+    <div id="" class=""  data-属性名称="值"></div>
+
+    <div id="" class=""  data-id="10"></div>
+
+
+    <div id="" class=""  data-id="20"></div>
+
+
+
+ 16. ng-class
+
+    ng-class={'red':true}
+
+    $scope.isTrue=false;
+
+    ng-class={'red':isTrue,'font':true}
+
+17.ng-include  引入外部页面
+
+tab切换可以做
+
+
+
+18. jqlite  angualrjs 内置了jq里面常见的方法
+
+    angular.element(element)
+
+    1.首先找到dom元素  var oBox=document.getElementById('box');
+
+    2. angular.element(oBox).css('background','red');
+
+
+19.angualrjs 中的服务
+
+    provider   service   factory
+
+
+1.写法上面的区别
+
+2.provider 自定义供应商，可以在配置文件里面配置
+
+provider：
+
+this.$get=function({
+    renturn {
+     数据
+    }
+})
+
+service   factory:
+   renturn {
+
+    }
+
+20代码压缩
+
+controller('firstController',function($scope){
+
+})
+
+
+controller('firstController',['$scope','$http',function($scope,$http){
+
+}])
+
+
+
+
+
+
+

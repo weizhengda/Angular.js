@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <script type="text/javascript" src="angular-sanitize.min.js"></script>
+
+    <style>
+
+        .content{
+            padding: 10px;
+            line-height: 180%;
+            font-size: 16px;
+        }
+        .content img{
+            max-width:80%;
+            display: block;
+            margin: 0 auto;;
+        }
+    </style>
+
+
+    <!--让浏览器简析html标签-->
+    <!--1. 下载	引入js  angular-sanitize.min.js-->
+    <!--2.	在module 中引入一下插件  依赖注入ngSanitize    var app = angular.module("myApp", ['ngSanitize']);-->
+    <!--3.	使用<div ng-bind-html="text"></div>  绑定数据-->
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            <h2>{{title}}</h2>
+
+            <!--{{content}}-->
+
+            <div class="content" ng-bind-html="content"></div>
+            <!--ng-bind-->
+        </div>
+
+        <hr>
+
+        <div ng-controller="secondController">
+            {{name}}
+        </div>
+
+</body>
+
+</html>
+
+<script>
+    /*实现 ng-app里面定义的  myApp
+     *
+     * 三个参数
+     * 1.ng-app里面定义的  myApp
+     * 2. 默认[]   表示依赖哪些   module
+     * 3.config  配置  是一个方法
+      *
+      * */
+   /*定义  module*/
+    var app=angular.module('myApp',['secondApp','ngSanitize']);   /*模块相互依赖*/
+
+    app.controller('firstController',['$scope','$http',function($scope,$http){
+
+        var url='http://www.phonegap100.com/appapi.php?a=getPortalArticle&aid=109&callback=JSON_CALLBACK'
+
+        $http.jsonp(url).success(function(data){
+            console.log(data);
+            $scope.content=data.result[0].content;
+
+            $scope.title=data.result[0].title;
+
+
+        }).error(function(){
+
+        })
+
+    }]);
+
+    /*定义第二个模块*/
+    var secondApp=angular.module('secondApp',[]);
+    secondApp.controller('secondController',['$scope',function($scope){
+
+        $scope.name='李四';
+
+    }])
+
+
+
+</script>

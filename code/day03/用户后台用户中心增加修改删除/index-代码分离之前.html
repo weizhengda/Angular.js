@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="js/angular.min.js"></script>
+
+    <style>
+
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        .header{
+            height: 50px;
+        }
+
+        .list-table{
+            border: 1px solid #ccc;
+            border-bottom: none;;
+
+            width:100%;
+        }
+        .list-table tr td, .list-table tr th{
+            border-bottom: 1px solid #ccc;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+
+
+        .bg{
+            position: absolute;
+            height: 100%;
+            width:100%;
+            background: rgba(0,0,0,0.5);
+            left: 0px;
+            top:0px;
+            z-index: 1;
+        }
+        .add,.edit{
+
+            position: absolute;
+            left: 50%;
+            top:50%;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            background: #fff;
+            z-index: 2;
+            -webkit-transform:translate(-50%,-50%);
+
+            transform:translate(-50%,-50%);
+
+        }
+        .add .title,.edit .title{
+
+            height: 40px;
+            line-height: 40px;
+           text-align: center;
+            background: #007aff;
+            color: #fff;
+        }
+
+        .add .com,.edit .com{
+            padding:10px;
+
+        }
+    </style>
+
+</head>
+<body ng-app="adminApp">
+
+    <div ng-controller="userController">
+
+
+        <!--用户名:  <input type="text" name="username" />-->
+        <!--<br/> <br/>-->
+        <!--密码:  <input type="text" name="age" />-->
+
+        <div class="header">
+            <button ng-click="addData()">增加用户</button>
+
+        </div>
+
+        <div class="list">
+            <table class="list-table" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>用户名</th>
+                    <th>姓名</th>
+
+                    <th>邮箱</th>
+
+                    <th>积分</th>
+
+                    <th>操作</th>
+                </tr>
+                <tr>
+                    <td>zhangsan</td>
+                    <td>zhangsan</td>
+
+                    <td>zhangsan</td>
+
+                    <td>zhangsan</td>
+
+                    <td> <button>删除</button> 　　　 <button>编辑</button></td>
+                </tr>
+                <tr>
+                    <td>zhangsan</td>
+                    <td>zhangsan</td>
+
+                    <td>zhangsan</td>
+
+                    <td>zhangsan</td>
+
+                    <td> <button>删除</button> 　　　 <button>编辑</button></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+
+        <div class="add" ng-if="isAddShow">
+
+            <div class="title">增加用户</div>
+            <div class="com">
+
+                用户名:  <input type="text" name="username" />
+                <br/> <br/>
+                姓　名:  <input type="text" name="name" />
+                <br/> <br/>
+                邮　箱:  <input type="text" name="email" />
+                <br/> <br/>
+                积　分:  <input type="text" name="score" />
+                <br/> <br/>
+
+                <button>增　加</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="edit" ng-if="isEditShow">
+
+            <div class="title">编辑用户</div>
+            <div class="com">
+
+                用户名:  <input type="text" name="username" />
+                <br/> <br/>
+                姓　名:  <input type="text" name="name" />
+                <br/> <br/>
+                邮　箱:  <input type="text" name="email" />
+                <br/> <br/>
+                积　分:  <input type="text" name="score" />
+                <br/> <br/>
+
+                <button>增　加</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="bg" ng-if="isAddShow || isEditShow" ng-click="hideDialog()">
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('adminApp',[]);
+
+
+    app.controller('userController',function($scope){
+        $scope.isAddShow=false;
+        $scope.isEditShow=false;
+
+
+
+
+        $scope.addData=function(){
+
+            $scope.isAddShow=true;
+        }
+
+
+        /*隐藏增加和编辑*/
+        $scope.hideDialog=function(){
+            $scope.isAddShow=false;
+            $scope.isEditShow=false;
+        }
+
+
+
+
+//
+//        ||   |
+//
+//
+//        &&  &
+
+//        ||  表示前面为true  后面就运算了
+//
+//        |   表示前面为true或者false     后面都运算了
+//
+//
+//        && 前面为false  后面就不运行了
+//
+//
+//        &  表示前面为true或者false     后面都运算了
+
+
+
+    })
+</script>

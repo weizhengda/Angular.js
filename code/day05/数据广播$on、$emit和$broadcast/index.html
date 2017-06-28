@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.min.js"></script>
+
+        <style>
+
+            .parent{
+                margin: 100px auto 0px auto;
+                width: 600px;
+                height: 600px;
+                border: 1px solid #000;
+            }
+            .self{
+
+                width: 200px;
+                height: 200px;
+                background: yellow;
+            }
+
+            .self a{
+                width:160px;
+                height: 40px;
+                line-height: 40px;
+                display: block;
+                background: blue;
+                margin:20px;
+
+            }
+
+            .child{
+                width: 100px;
+                height: 100px;
+                background: red;
+            }
+
+            .bro{
+                width: 200px;
+                height: 200px;
+                background: orange;
+                margin-top:20px
+            }
+        </style>
+
+    </head>
+    <body>
+      <div ng-app="myApp">
+
+          <div class="parent" ng-controller="ParentCtrl">              <!--父级-->
+
+              ParentCtrl
+              <div class="self" ng-controller="SelfCtrl">              <!--自己-->
+                  <a ng-click="click()">自己</a>
+                  <div class="child" ng-controller="ChildCtrl">ChildCtrl</div>     <!--子级-->
+              </div>
+
+
+              <div class="child" ng-controller="BroCtrl">BroCtrl</div>     <!--兄弟节点-->
+
+          </div>
+
+
+
+
+
+
+      </div>
+      <script type="text/javascript">
+
+
+          var app = angular.module('myApp', []);
+          app.controller('SelfCtrl', function($scope,$rootScope) {
+              $scope.click = function () {
+                  /*
+
+
+                   $scope  $rootScope上面都可以绑定广播
+
+                  * $broadcast  给子controller 广播数据
+                  * $emit  给 父亲controller广播数据
+                  *
+                  *
+                  * $scope.$on  接收数据  ('名称',function(event,data){
+                  * })
+                  *
+                  * */
+
+//                  $scope.$broadcast('to-child', '给child数据');    //前面是名字   后面是数据  数据可以是 字符串  也可以是数组 和对象
+//
+//                  $scope.$broadcast('to-parent', '给父亲元素广播数据')
+
+                  $scope.$emit('to-child', '给child数据');    //前面是名字   后面是数据  数据可以是 字符串  也可以是数组 和对象
+
+                  $scope.$emit('to-parent', '给父亲元素广播数据')
+
+
+
+
+                  $rootScope.$broadcast('to-all', '给所有controller的广播');
+
+
+
+
+              }
+          });
+
+          app.controller('ParentCtrl', function($scope) {
+
+              $scope.$on('to-child',function(event,data){
+                  console.log('父ParentCtrl'+data);
+              })
+
+              $scope.$on('to-parent',function(event,data){
+                  console.log('父ParentCtrl'+data);
+              })
+
+              $scope.$on('to-all',function(event,data){
+                  console.log('父ParentCtrl'+data);
+              })
+
+
+
+
+
+          });
+
+          app.controller('ChildCtrl', function($scope){
+              $scope.$on('to-child',function(event,data){
+                  console.log('子元素ChildCtrl'+data);
+              })
+
+              $scope.$on('to-parent',function(event,data){
+                  console.log('子元素ChildCtrl'+data);
+              })
+
+               $scope.$on('to-all',function(event,data){
+                  console.log('子ChildCtrl'+data);
+              })
+
+
+
+          });
+
+          app.controller('BroCtrl', function($scope){
+              $scope.$on('to-child',function(event,data){
+                  console.log('兄元素ParentCtrl'+data);
+              })
+
+              $scope.$on('to-parent',function(event,data){
+                  console.log('兄元素ParentCtrl'+data);
+              })
+
+              $scope.$on('to-all',function(event,data){
+                  console.log('兄弟BroCtrl'+data);
+              })
+
+
+          });
+
+
+
+
+
+
+
+      </script>
+       
+    </body>
+</html>

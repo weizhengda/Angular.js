@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            {{name | uppercase}}
+            <br/>
+            {{name | lowercase}}
+
+
+            <br/>
+
+            金额：{{price | currency:'RMB:'}}
+
+            <br/>
+            <pre>
+                {{obj | json}}
+            </pre>
+
+            <br/>
+
+           <pre>
+                这是一个
+
+
+            pre
+
+
+
+            的演示
+
+           </pre>
+
+
+            {{'1288323623006' | date:'MM/dd/yyyy'}}
+
+            <br/>
+
+            {{'1288323623006' | date:'yyyy-MM-dd H:mm:s '}}
+
+            <br/>
+            <hr/>
+
+
+            <br/>
+
+            <input type="text" ng-value="name"/>
+
+
+            <ul>
+                <li ng-repeat="item in jsonData">
+
+                    {{item.name}}--{{item.age}}
+                </li>
+            </ul>
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,$interval){
+
+        $scope.name='Hello';
+
+        $scope.price=1000;
+
+        $scope.obj={
+
+            name:'张三',
+
+            age:20
+        }
+
+        $scope.jsonData=[
+            {name:'张三',age:'20',info:'是一个xxx'},
+            {name:'李四',age:'15',info:'张三是一个xxx'},
+            {name:'王五',age:'25'},
+            {name:'张四',age:'49'},
+        ]
+
+
+    })
+
+</script>

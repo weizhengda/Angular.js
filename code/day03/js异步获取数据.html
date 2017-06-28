@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script>
+
+
+//        function getName(){
+//
+//            var a=123;
+//
+//            return a;
+//        }
+//
+//
+//        alert(getName());
+
+
+
+//        function getName(){
+//
+//              var a='';
+//              setTimeout(function(){
+//
+//                  a='这是服务器获取的数据'
+//                  return a;
+//
+//              },1000);
+//
+//
+//
+//        }
+//
+//
+//        alert(getName());
+//
+
+
+
+//    function getName(){
+//
+//        var a='';
+//        setTimeout(function(){
+//
+//            a='这是服务器获取的数据';
+//
+//            (function(data){
+//                alert(data)
+//
+//            })(a);
+//        },1000);
+//
+//    }
+//  getName()
+
+
+
+//
+//    function getName(callbak){
+//        var a='';
+//        setTimeout(function(){
+//            a='这是服务器获取的数据';
+//            callbak(a);
+//
+//        },1000);
+//
+//    }
+//    getName(function(data){
+//        alert(data);
+//    })
+
+
+
+
+function jsonp(url,callbak){
+
+    var a='';
+    setTimeout(function(){
+
+        a=url+'这是服务器数据';
+
+
+        callbak(a);
+
+    },1000);
+
+}
+//jsonp('http://www.baidu.com',function(data){
+//    alert(data);
+//})
+
+
+jsonp('http://www.qq.com',function(data){
+    alert(data);
+})
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

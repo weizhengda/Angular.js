@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+
+        {{msg}}
+
+
+
+        <button ng-click="getData()">请求数据</button>
+
+        <ul>
+            <li ng-repeat="item in list">
+                {{item.title}}
+            </li>
+        </ul>
+
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,NewsService){
+
+        $scope.list='';
+
+        $scope.getData=function(){
+
+            $scope.list= NewsService.requestListData();
+
+
+        }
+
+
+    })
+
+
+    //model
+    app.factory('NewsService',function(){
+
+        var news=[
+
+            {'title':'新闻111'},
+            {'title':'新闻2222'},
+            {'title':'新闻3333'}
+        ];
+
+        return {
+            requestListData:function(){
+
+                return news;
+
+            }
+
+        }
+    })
+
+
+</script>

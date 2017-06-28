@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+        body{
+            background: #eee;
+        }
+
+        .box{
+            background: red;
+            width: 200px;
+            height: 200px;
+        }
+
+
+    </style>
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            <!--<input type="checkbox" ng-model="isShow"/>-->
+
+            <!--<div class="box" ng-if="isShow">-->
+                <!--ng-if dom操作   删除增加dom-->
+            <!--</div>-->
+
+            <!--<br/>-->
+
+            <input type="checkbox" ng-model="isShow"/>
+            <div class="box" ng-show="isShow">
+                ng-show  css dispaly:none  display:block
+
+            </div>
+
+
+
+
+            <!--<input type="radio" name="myRadio" ng-model="sel" ng-value="1"/>-->
+
+            <!--<input type="radio" name="myRadio" ng-model="sel" ng-value="2"/>-->
+
+
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope){
+
+        $scope.isShow=true;
+
+
+
+    })
+
+</script>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+            {{name}}
+            <strong ng-bind="name"></strong>
+            <br/>
+            <ul>
+                <li ng-repeat="i in lists">{{i.name}}-{{i.age}}--{{i.sex}}</li>
+            </ul>
+        </div>
+
+        <div ng-controller="secondController">
+            {{name}}
+        </div>
+
+        <div ng-controller="thirdController">
+            {{name}}
+            <ul>
+                <li ng-repeat="item in items.result">{{item.title}}</li>
+            </ul>
+
+        </div>
+
+</body>
+
+
+</html>
+
+<script>
+    /*实现 ng-app里面定义的  myApp
+     *
+     * 三个参数
+     * 1.ng-app里面定义的  myApp
+     * 2. 默认[]   表示依赖哪些   module
+     * 3.config  配置  是一个方法
+      *
+      * */
+   /*定义  module*/
+
+    var app= angular.module('myApp',[]);
+
+    app.controller('firstController',['$scope',function($sp){
+        $sp.name='张三';
+
+        $sp.lists=[
+            {name:'张三',age:30,sex:'男'},
+            {name:'李四',age:10,sex:'女'},
+            {name:'王麻子',age:20,sex:'男'}
+        ];
+
+    }]);
+
+    app.controller('secondController',['$scope',function($sp){
+
+        $sp.name='secondController';
+
+
+    }]);
+
+    app.controller('thirdController',['$scope','$http',function($scope,$http){
+        $scope.name='thirdController';
+            var myUrl = "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=1&page=1&callback=JSON_CALLBACK";
+            $http.jsonp(myUrl).success(
+                    function(data){
+                        console.log(data);
+                        $scope.items = data;
+                    }
+            ).error(function(){
+                        alert('shibai');
+
+           });
+
+
+    }])
+
+
+    /*
+    * console.log(app);
+    * $scope 控制器和模板之间的桥梁
+    * */
+
+
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+        body{
+            background: #eee;
+        }
+
+        .box{
+            background: red;
+        }
+        .w200{
+            width: 200px;
+            height: 200px;
+        }
+        .size{
+            font-size: 40px;
+        }
+
+    </style>
+</head>
+<body ng-app="myApp">
+
+
+        <!--ng-src 只有程序初始化以后才加载图片-->
+
+
+        <!--src={{url}}程序加载会执行2次这个代码-->
+
+        
+        <div ng-controller="firstController">
+
+
+            <!--属性绑定数据的时候要注意-->
+            <!--<img src="{{url}}" alt="" onerror="javascript:this.src='submail700.jpg';" />-->
+
+
+            <!--<img ng-src="{{url}}" alt="" onerror="javascript:this.src='submail700.jpg';" />-->
+
+
+            <img src="111" alt="" onerror="javascript:this.src='submail700.jpg';" />
+
+
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,$timeout){
+
+
+            $timeout(function(){
+
+                $scope.url="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png";
+
+
+                $scope.href='http://www.baidu.com';
+
+            },2000)
+
+
+
+    })
+
+</script>

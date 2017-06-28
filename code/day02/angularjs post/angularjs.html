@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+    </head>
+    <body ng-app="myApp">
+      <div ng-controller="firstController"> 
+
+		
+
+		</div>
+
+		<script>
+		
+		
+		  var app=angular.module('myApp',[]);
+		    app.controller('firstController',function($scope,$http){
+
+
+		    		var url='http://localhost/php01/ajaxpost.php'
+					var postData={text:'这是post的内容'};
+					var config={params:{id:'5'}}
+					$http.post(url,postData,config) .success(function(response) {
+						console.log(response);
+					}).error(function(data){
+						//错误代码
+						console.log('错误代码');
+					});
+					
+					
+
+		    })
+
+			
+
+		</script>
+
+
+       
+    </body>
+</html>

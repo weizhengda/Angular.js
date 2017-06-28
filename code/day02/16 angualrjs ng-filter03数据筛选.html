@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            <input type="text" ng-model="keyword" ng-change="searchData()"/>
+
+            <ul>
+                <li ng-repeat="item in list track by $index">
+
+                    {{item.name}}--{{item.age}}
+                </li>
+            </ul>
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope){
+
+
+
+        /*保存筛选到的数据*/
+
+        $scope.keyword='';
+
+        $scope.jsonData=[
+            {name:'张三',age:'20',info:'是一个xxx'},
+            {name:'李四',age:'15',info:'张三是一个xxx'},
+            {name:'王五',age:'25'},
+            {name:'张四',age:'49'},
+        ]
+
+        /*searchData筛选数据*/
+
+        $scope.searchData=function(){
+
+            $scope.list=[];
+
+            angular.forEach($scope.jsonData,function(value,key){
+
+                if(value.name.indexOf($scope.keyword)!=-1){
+
+                    $scope.list.push(value);
+                }
+
+            })
+
+
+        }
+
+
+//        js  查找字符串的几种方式  indexOf
+
+    })
+
+</script>

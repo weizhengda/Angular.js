@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+            <!--{{'hello' | uppercase}}    大写-->
+            <br/>
+            {{name}}
+            <br/>
+
+            {{name | uppercase}}
+
+            <br/>
+
+            {{price | currency}}
+
+            <br/>
+
+
+            {{price | currency:'RMB:'}}
+
+
+            <br/>
+            price1:{{price1}}
+
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    app.controller('firstController',function($scope,$interval,$filter){
+
+        $scope.name='Hello';
+
+        $scope.price='250';
+
+
+        $scope.name= $filter('uppercase')($scope.name);
+
+        $scope.price1= $filter('currency')($scope.price,'RMB:');
+
+
+
+
+
+
+//        $filter('uppercase')($scope.name);
+
+//        console.log($filter('uppercase')($scope.name));   /*大写*/
+
+
+//        hello angular
+
+//        你好
+
+//        如果 separator 是包含子表达式的正则表达式，那么返回的数组中包括与这些子表达式匹配的字串
+
+
+    })
+
+</script>

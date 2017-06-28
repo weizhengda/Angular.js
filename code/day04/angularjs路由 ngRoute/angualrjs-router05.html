@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-route.min.js"></script>
+
+
+
+    <style>
+        .header{
+            width: 1000px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+        }
+
+        .content{
+            width: 1000px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+
+        .list li{
+            line-height: 40px;
+        height: 40px;
+        }
+
+
+    </style>
+    <!--
+        1.引入js
+        2.在html页面中定义  ng-view  显示我们模板里面动态加载的数据
+        3.var app=angular.module('myApp',['ngRoute']);   依赖注入
+    -->
+
+
+</head>
+<body ng-app="myApp">
+
+    <div class="header">
+
+        <a href="#home">首页</a>
+        <a href="#news">新闻</a>
+
+    </div>
+
+    <!--ng-view视图-->
+    <div ng-view>
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',['ngRoute']);
+
+    //首页模块   新闻模块
+
+    //$routeProvider  注意不要写成  $routerProvide  X
+
+    app.config(function($routeProvider){
+
+
+        $routeProvider.when('/home',{
+
+            templateUrl:'templates/home.html',
+            controller:'HomeController'
+
+        }).when('/news',{
+
+            templateUrl:'templates/news.html',
+            controller:'NewsController'
+
+
+        }).when('/newscontent/:aid',{
+
+
+            templateUrl:'templates/newscontent.html',
+            controller:'NewsContentController'
+
+
+        }).otherwise({  /*找不到路由的时候动态跳转的页面*/
+            redirectTo:'/home'
+        })
+
+    })
+
+    app.controller('HomeController',function($scope){
+
+        $scope.name='张三';
+
+    })
+    /*新闻列表*/
+    app.controller('NewsController',function($scope,NewsService){
+
+       $scope.list= NewsService.getAll();
+
+    })
+
+    /*新闻详情
+    *$routerParams 获取url传过来的参数
+    * */
+    app.controller('NewsContentController',function($scope,NewsService,$routeParams){
+
+            //获取新闻详情数据
+
+
+        console.log($routeParams);
+
+        var aid=$routeParams.aid;
+
+
+        console.log($routeParams);
+
+        console.log(NewsService.getOneData(aid));
+
+
+        $scope.con=NewsService.getOneData(aid);
+
+
+    })
+
+    app.service('NewsService',function(){
+
+        var  data=[
+            {
+                aid:'1',
+                title:'这是第一个新闻111',
+                content:'这是新闻的内容111'
+            },
+            {
+                aid:'3',
+                title:'这是第一个新闻32',
+                content:'这是新闻的内容33333333'
+            },
+            {
+                aid:'5',
+                title:'这是第一个新闻dsfdsfdsf',
+                content:'这是新闻的内容555555555555'
+            },
+            {
+                aid:'7',
+                title:'这是第一个新闻cdvdsgdsgewr212122',
+                content:'这是新闻的内容'
+            }
+
+        ]
+
+        return{
+
+            getAll:function(){
+
+                return data;
+            },getOneData:function(aid){
+
+                var rel='';
+
+                data.forEach(function(value,key){
+
+                        if(value.aid==aid){
+
+                            rel=value;
+                        }
+
+
+                })
+                return rel;
+
+            }
+
+        }
+
+
+
+    })
+
+
+
+
+
+</script>

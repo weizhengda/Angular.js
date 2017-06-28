@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>http</title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            {{name}}
+
+            <input type="text" ng-model="keywords" ng-change="getData(keywords)"/>
+
+            <br/>
+
+            <ul>
+                <li ng-repeat="item in list">
+                    {{item}}
+                </li>
+            </ul>
+
+        </div>
+</body>
+</html>
+<script>
+   //  var myUrl='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+$scope.keywords+'&cb=JSON_CALLBACK';
+
+
+    var app=angular.module('myApp',[]);
+
+   app.controller('firstController',function($scope,$http,$timeout){
+
+//        $scope.name='13212'
+
+       $scope.list=[];/*放数据*/
+
+       var timer='';
+
+       $scope.getData=function(data){  /*请求数据*/
+
+            $timeout.cancel(timer);
+
+           timer=$timeout(function(){
+
+                var myUrl='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+data+'&cb=JSON_CALLBACK';
+                /*去服务器请求数据*/
+                $http.jsonp(myUrl).then(function(rel){
+                    console.log(rel);
+
+                    $scope.list=rel.data.s;
+
+
+                },function(){
+                })
+
+
+            },200)
+
+       }
+   })
+
+
+
+
+
+</script>

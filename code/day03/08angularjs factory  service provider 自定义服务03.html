@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+            {{msg}}
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    //prodiver 服务名称后面加上Provider，服务名称newsService  供应商newsServiceProvider
+    app.config(function(newsServiceProvider){
+        newsServiceProvider.name='我是在配置config里面配置的数据';
+
+    })
+
+    app.provider('newsService',function(){
+        var _that=this;
+        this.$get=function(){
+            return{
+                getData:function(){
+                    if(_that.name){
+                        return  _that.name;
+                    }else{
+                        return '李四'
+                    }
+                }
+            }
+        }
+
+
+    });
+
+    app.controller('firstController',['$scope','shopService','shopFactory','newsService',function($a,shopService,shopFactory,newsService){
+
+        $a.msg='21313'
+
+        shopService.setName('zhangsan...');
+        console.log(shopService.getName());
+
+        shopFactory.setName('lisi...');
+
+        console.log(shopFactory.getName());
+
+
+        console.log(newsService.getData());
+    }]);
+
+
+
+
+    app.service('shopService',function(){
+        var _name='';
+        return {
+
+           setName:function(name){
+               _name=name;
+
+           },getName:function(){
+                return _name
+
+            }
+        }
+
+    });
+
+    app.factory('shopFactory',function(){
+
+        var _name='';
+
+       this.setName=function(name){
+
+           _name=name;
+       }
+
+        this.getName=function(){
+
+            return _name;
+        }
+
+        return this;
+    });
+
+
+
+
+
+
+
+</script>

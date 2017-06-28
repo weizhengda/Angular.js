@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+
+    <style>
+        ul{
+            list-style: none;
+        }
+        ul li img{
+            height: 100px;
+            width: 100px;
+
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+
+        <ul>
+            <li ng-repeat="item in items">
+                <img src="{{item.face}}" alt="{{item.face}}"/>
+                <p>{{item.name}}</p>
+
+            </li>
+        </ul>
+
+    </div>
+
+    <hr/>
+    <div ng-controller="secondController">
+
+        <ul>
+            <li ng-repeat="item in items">
+                <img src="{{item.face}}" alt="{{item.face}}"/>
+                <p>{{item.name}}</p>
+            </li>
+        </ul>
+        {{name}}
+
+    </div>
+    <hr/>
+
+
+</body>
+</html>
+
+<script>
+
+
+</script>

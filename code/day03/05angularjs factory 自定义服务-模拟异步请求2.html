@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="firstController">
+
+        {{msg}}
+
+
+
+        <!--<button ng-click="getData()">请求数据</button>-->
+
+        <ul>
+            <li ng-repeat="item in list">
+                {{item.title}}
+            </li>
+        </ul>
+
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    /*业务逻辑的处理*/
+    app.controller('firstController',function($scope,NewsService){
+
+        $scope.list='';
+
+        NewsService.requestListData(function(data){   /*回调函数拿到异步数据*/
+
+            console.log(data);
+            $scope.list=data.data.result
+
+        })
+
+
+
+    })
+
+    //服务里面没法以来注入$scope
+
+    //$http系统内置的服务
+
+    app.factory('NewsService',function($http){
+
+        var list=[];
+
+        return {
+            requestListData:function(callback){
+                /*去服务器请求数据   异步*/
+               //http://www.phonegap100.com/appapi.php?a=getPortalList&catid=1&page=1&callback=JSON_CALLBACK
+                var url="http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1&callback=JSON_CALLBACK";
+                $http.jsonp(url).then(function(data){
+                    list=data;
+                    callback(list)
+                })
+            }
+
+        }
+    })
+
+
+</script>

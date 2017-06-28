@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+             {{name}}
+            <br/>
+            {{msg}}
+            <br/>
+            <br/>
+
+            {{info}}
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,NewsService,ProductFactory,UserProvider){
+
+        $scope.name=NewsService.msg;
+
+        $scope.msg=ProductFactory.msg;
+
+        $scope.info=UserProvider.msg;
+
+    });
+
+    app.service('NewsService',function(){
+
+        return {
+
+            msg:'this is  NewsService'
+        }
+    })
+
+
+    app.factory('ProductFactory',function(){
+
+        return {
+
+            msg:'this is  ProductFactory'
+        }
+    })
+
+
+
+    app.provider('UserProvider',function(){
+        this.$get=function(){   /*provider定义服务必须把返回的方法和数据放在  this.$get里面 */
+
+            return {
+                msg:'this is  UserProvider',
+                setName:function(){
+
+                }
+
+            }
+        }
+    })
+
+
+
+
+</script>

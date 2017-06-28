@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello angular</title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+        }
+
+    </style>
+</head>
+<body ng-app="myApp">
+
+
+<div ng-controller="firstController">
+   <div class="box" id="box">
+
+       box
+   </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope){
+
+            //1.获取element
+
+            var oBox=document.getElementById('box');
+
+
+
+        //用jqlite实现dom操作   angular.element(element);
+
+         angular.element(oBox).css('background','red');
+
+//
+//          $('#box').css('background','red');
+
+
+        alert(angular.element(oBox).html())
+
+        angular.element(oBox).html('这是改变的值');
+
+
+    })
+</script>

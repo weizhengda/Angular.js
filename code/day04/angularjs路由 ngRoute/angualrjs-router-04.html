@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-route.min.js"></script>
+
+    <!--
+
+        1.引入js
+        2.在html页面中定义  ng-view  显示我们模板里面动态加载的数据
+        3.var app=angular.module('myApp',['ngRoute']);   依赖注入            4.配置路由  $routeProvider
+    -->
+
+
+</head>
+<body ng-app="myApp">
+<!--ng-view  定义视图-->
+<div ng-view>
+
+</div>
+
+
+</body>
+</html>
+
+<script>
+    var app=angular.module('myApp',['ngRoute']);
+
+    /*
+    * 首页
+    * 新闻列表
+    * 新闻详情
+    * 用户中心
+    * */
+   app.config(function($routeProvider){
+
+       $routeProvider.when('/home',{
+
+            templateUrl:'template/home.html',
+            controller:'homeController'
+
+       }).when('/news_list',{
+           templateUrl:'template/news_list.html',
+           controller:'newsListController'
+
+       }).when('/news_content/:id',{
+
+           templateUrl:'template/news_content.html',
+           controller:'newsContentController'
+
+       }).when('/user',{
+
+           templateUrl:'template/user.html'
+
+       }).otherwise({   /*找不到路由的时候跳转到路由*/
+           redirectTo:'/home'
+       })
+
+   })
+
+
+    app.controller('homeController',function($scope){
+
+    })
+
+
+    app.controller('newsListController',function($scope,newsServices){
+
+        $scope.list=newsServices.getAllData();
+
+    })
+
+    app.controller('newsContentController',function($scope,$routeParams,newsServices){
+
+        console.log($routeParams.id);
+
+      //  23
+
+         var data= newsServices.getOneData($routeParams.id);
+
+        console.log(data);
+
+
+
+    })
+
+
+
+    /*定义服务*/
+
+    app.service('newsServices',function(){
+
+
+        var list = [{
+            id:10,
+            name: 'Ben Sparrow',
+            lastText: 'You on your way?',
+
+        }, {
+            id: 11,
+            name: 'Max Lynx',
+            lastText: 'Hey, it\'s me',
+
+        }, {
+            id: 12,
+            name: 'Adam Bradleyson',
+            lastText: 'I should buy a boat',
+
+        }, {
+            id: 23,
+            name: 'Perry Governor',
+            lastText: 'Look at my mukluks!',
+
+        }, {
+            id: 24,
+            name: 'Mike Harrington',
+            lastText: 'This is wicked good ice cream.',
+
+        }];
+
+
+
+        return{
+
+            getAllData:function(){
+
+                return list;
+            },
+            getOneData:function(id){
+
+
+                var data='';
+                angular.forEach(list,function(value,key){
+
+                    if(value.id==id){
+                        //return value;
+                        data=list[key];
+                    }
+
+                })
+                return data;
+
+
+            }
+        }
+
+
+    })
+
+
+
+
+</script>

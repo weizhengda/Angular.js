@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+
+
+        <div ng-controller="FirstController">
+
+            {{msg}}
+
+            <hr/>
+
+
+            <ul>
+                <li ng-repeat="item in list">
+
+                    {{item.name}}
+                </li>
+            </ul>
+            <br/>
+            <br/>
+            <hr/>
+
+        </div>
+
+
+        <div ng-controller="secondController">
+
+
+            {{msg}}
+
+            <br/>
+
+            {{list | json}}
+        </div>
+
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+
+    //依赖注入
+    app.controller('FirstController',function($scope,$storage,NewsServices,ProductService){
+
+
+        console.log(NewsServices.getData());  /*获取数据*/
+
+        $storage.set('userinfo','用户信息');
+
+        $scope.msg='第一个控制器';
+
+        $scope.list=NewsServices.getData();
+
+        console.log(ProductService.getData());
+
+    })
+ //    $storage  服务必须注入才能使用
+
+    app.controller('secondController',function($scope,$storage,NewsServices){
+        $scope.msg='第二个控制器';
+
+
+        $scope.info=$storage.get('userinfo');
+
+          $scope.list= NewsServices.getOneData(1);
+
+        console.log($scope.list);
+
+
+
+
+    })
+
+
+    //localstorage   定义成一个服务
+
+    // 服务在angularjs中也可以把他当做 model
+
+
+    //定义服务三种方式：
+
+    //service     factory    provider
+
+
+
+/*定义一个服务*/
+    app.service('$storage',function(){
+            //可以写公共的功能 或者请求数据
+
+            var services={
+
+                set:function(key,value){
+
+                    localStorage.setItem(key,JSON.stringify(value));
+                },
+                get:function(key){
+
+                    return JSON.parse(localStorage.getItem(key));
+                }
+            }
+
+             return services;  /*和模块的暴露优点相似 */
+
+    })
+
+
+ //factory定义服务
+
+app.factory('NewsServices', function () {
+
+
+
+    var chats = [{
+        id: 0,
+        name: 'Ben Sparrow',
+        lastText: 'You on your way?',
+        face: 'img/ben.png'
+    },{
+        id: 1,
+        name: 'Max Lynx',
+        lastText: 'Hey, it\'s me',
+        face: 'img/max.png'
+    }, {
+        id: 2,
+        name: 'Adam Bradleyson',
+        lastText: 'I should buy a boat',
+        face: 'img/adam.jpg'
+    }];
+
+        return {
+
+
+            getData:function(){
+
+                return chats;
+            },
+            getOneData:function(id){
+
+//                forEach 是个异步
+
+//                chats.forEach(function (value, key) {
+//                    if(value.id==id){
+//
+//                        return value;
+//                    }
+//                })
+
+
+                for(var i=0;i<chats.length;i++){
+
+                    if(chats[i].id==id){
+
+                        return chats[i];
+                    }
+                }
+
+
+
+
+
+
+            }
+
+
+        }
+    })
+
+
+    //provider定义服务
+
+    app.provider('ProductService',function(){
+
+        this.$get=function(){   /*所有的操作写在这个里面*/
+
+            return {
+
+                getData:function(){
+
+                    return '开始请求数据'
+                }
+            }
+
+        }
+
+    })
+
+
+
+
+
+
+
+</script>

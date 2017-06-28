@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-route.min.js"></script>
+
+    <style>
+        .header{
+            width: 1000px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+        }
+
+        .content{
+            width: 1000px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+
+
+    </style>
+    <!--
+
+        1.引入js
+        2.在html页面中定义  ng-view  显示我们模板里面动态加载的数据
+        3.var app=angular.module('myApp',['ngRoute']);   依赖注入
+
+
+    -->
+</head>
+<body ng-app="myApp">
+
+    <div class="header">
+
+        <a href="#home">首页</a>
+        <a href="#news">新闻</a>
+
+    </div>
+
+    <!--ng-view视图-->
+    <div ng-view>
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',['ngRoute']);
+
+    //首页模块   新闻模块
+
+    //$routeProvider  注意不要写成  $routerProvide  X
+
+    app.config(function($routeProvider){
+
+
+        $routeProvider.when('/home',{
+
+            templateUrl:'templates/home.html',
+            controller:'HomeController'
+
+        }).when('/news',{
+
+            templateUrl:'templates/news.html',
+            controller:'NewsController'
+        })
+
+    })
+
+    app.controller('HomeController',function($scope){
+
+        $scope.name='张三';
+
+    })
+
+    app.controller('NewsController',function($scope){
+
+        $scope.name='lisi';
+
+
+        $scope.list=[
+
+            '张三',
+            '李四',
+            'wanguw',
+        ]
+
+
+    })
+
+
+
+
+
+</script>

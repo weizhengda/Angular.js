@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-route.min.js"></script>
+
+    <style>
+        .header{
+            width: 1000px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+        }
+
+        .content{
+            width: 1000px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+
+
+    </style>
+
+    <!--
+        1.引入js
+        2.在html页面中定义  ng-view  显示我们模板里面动态加载的数据
+        3.var app=angular.module('myApp',['ngRoute']);   依赖注入
+
+
+    -->
+
+
+</head>
+<body ng-app="myApp">
+        <div class="header">
+            <a href="#news">新闻</a>
+            <a href="#newslist">新闻列表</a>
+            <a href="#newscontent">新闻详情</a>
+        </div>
+        <div class="content">
+            <div ng-view>
+
+            </div>
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',['ngRoute']);
+
+
+    app.config(function($routeProvider){   /*配置供应商  配置路由*/
+
+
+            $routeProvider.when('/news',{
+                templateUrl:'template/news.html',
+                controller:'newsController'                    /*控制器*/
+            })
+            .when('/newslist',{
+                templateUrl:'template/newslist.html',
+                controller:'newslistController'                    /*控制器*/
+            })
+            .when('/newscontent/:id/:cateid',{           /*配置  传参*/
+                templateUrl:'template/newscontent.html',
+                controller:'newscontentController'                    /*控制器*/
+            }).otherwise({         /*找不到路由的时候跳转到 指定的路由*/
+                        redirectTo:'/news'
+             })
+
+
+    });
+
+    app.controller('newsController',function($scope){
+
+        $scope.data='newsController';
+
+        $scope.items=[
+            {name:'张三',age:'20'},
+            {name:'李四',age:'21'},
+            {name:'张三',age:'20'}
+        ]
+
+
+
+
+    });
+    app.controller('newslistController',function($scope){
+
+        $scope.data='newslistController';
+
+    });
+
+    app.controller('newscontentController',function($scope){
+
+        $scope.data='newscontentController';
+
+
+    });
+
+
+
+
+
+
+
+
+</script>

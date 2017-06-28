@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+    </head>
+    <body>
+      <div ng-app="" ng-controller="customersController"> 
+
+		<ul>
+		  <!--<li ng-repeat="x in names">-->
+			<!--{{ x.Name + ', ' + x.Country }}-->
+		  <!--</li>-->
+		</ul>
+
+		</div>
+
+		<script>
+				var url='http://localhost/php01/ajaxpost.php'
+				var postData={text:'这是post的内容'};
+				var config={params:{id:'5'}};
+				//www.baidu.com/?action=news
+				//url www.baidu.com
+
+				//{params:{action:'news'}}
+
+				$http.post(url,postData,config) .success(function(response) {
+					console.log(response);
+				}).error(function(data){
+					//错误代码
+
+				});
+
+			//后台接收数据的时候要用 json方式接收
+
+			//$_POST['name']
+
+
+
+
+		</script>
+
+
+       
+    </body>
+</html>

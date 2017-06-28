@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+
+    <script type="text/javascript" src="js/contrller.js"></script>
+
+    <script type="text/javascript" src="js/services.js"></script>
+
+</head>
+<body ng-app="myApp">
+<div ng-controller="firstController">
+
+            {{msg}}
+            <button ng-click="getData()">请求数据</button>
+
+            <ul>
+                <li ng-repeat="item in list">
+                    {{item.title}}
+                </li>
+            </ul>
+
+</div>
+
+
+</body>
+</html>

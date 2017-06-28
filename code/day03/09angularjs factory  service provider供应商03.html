@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="firstController">
+
+</div>
+
+<!--<div ng-controller="secondController">-->
+<!--<ul>-->
+<!--<li ng-repeat="item in items">-->
+
+<!--{{item.name}}&#45;&#45;{{item.lastText}}-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+//    firstservicesProvider  服务的名称和Provider拼接起来表示可以配置firstservices
+
+    app.config(function(firstservicesProvider){   /*anguarjs的配置*/
+        firstservicesProvider.work='是一个web前端';
+
+    })
+    /*
+    *   1.provider  factory  service 返回对象的时候么有区别
+    *   2.provider  factory  service   同时返回字符串的时候     service获取不到值
+    *   3.provider里面返回的所有东西得写道  this.$get=function(){   }    *
+    *   4.provider  factory  service  都可以通过this上面绑定方法和属性  最后返回this   *
+    * */
+    app.controller('firstController',['$scope','firstservices',
+        function($scope,firstservices){
+
+            firstservices.setName('李四哈哈哈');
+
+            console.log(firstservices.getWork());
+
+    }]);
+
+
+    app.provider('firstservices',function(){
+
+
+        var that=this;
+
+        this.$get=function(){
+
+            var _name='';
+
+
+            this.setName=function(name){
+                _name=name
+            }
+
+            this.getName=function(){
+                return _name+'这是一个firstFactory'
+            }
+
+            this.getWork=function(){
+                if(!that.work){  //that.work  没有定义   可以在app.config里面配置
+
+                    return _name+'没有工作'
+                }else{
+                    return _name+'---'+that.work
+
+                }
+
+            }
+
+
+
+            return this;
+
+
+        }
+    });
+
+
+
+
+</script>

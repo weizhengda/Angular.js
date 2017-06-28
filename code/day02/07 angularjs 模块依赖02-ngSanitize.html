@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <script type="text/javascript" src="angular-sanitize.js"></script>
+
+
+    <script>
+
+    /*
+    *
+    1.引入  angular-sanitize.js
+     2.依赖注入ngSanitize
+     3.ng-bind-html 绑定数据
+
+     * */
+    </script>
+</head>
+<body ng-app="myApp">
+        <div ng-controller="firstController">
+            {{title}}
+            <br/>
+
+            <span ng-bind="title"></span>
+            <br/>
+
+            <span ng-bind-html="title"></span>
+
+
+        </div>
+
+</body>
+
+</html>
+<script>
+
+    var app=angular.module('myApp',['ngSanitize']);
+
+    app.controller('firstController',function($scope){
+        $scope.title='<h2>这是一个标题</h2>'
+
+    })
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <style>
+
+        .box{
+            background: red;
+        }
+        .w200{
+            width: 200px;
+            height: 200px;
+        }
+        .w300{
+            width: 300px;
+            height: 300px;
+        }
+
+
+    </style>
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            <div class="box" ng-class="{'w200':w2,'w300':w3}">
+
+            </div>
+
+            <ul>
+                <li ng-repeat="item in list" ng-class="{'box':$index==0}">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,$interval){
+
+        $scope.w3=true;
+
+        $scope.w2=false;
+
+        $scope.list=['1','2','3'];
+
+
+    })
+
+</script>

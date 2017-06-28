@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        .box{ width:200px; height:200px; background:red; }
+
+    </style>
+    <script src="jquery-1.11.1.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.2.9/angular-animate.min.js"></script>
+
+    <script>
+
+        var m1 = angular.module('myApp',['ngAnimate']);
+        m1.controller('firstController',['$scope',function($scope){
+            $scope.bBtn = true;
+        }]);
+
+        m1.animation('.box',function(){
+            return{
+                addClass:function(element,Sclass,done){
+//                    console.log(element);
+//                    console.log(Sclass);
+//                    console.log(done);
+                    $(element).animate({width:0,height:0},1000,done);
+
+                },
+                removeClass:function(element,Sclass,done){
+
+                    $(element).css({width:0,height:0});
+
+
+                    $(element).animate({width:200,height:200},1000,done);
+
+                }
+
+            }
+
+        });
+
+    </script>
+</head>
+
+<body>
+<div ng-controller="firstController">
+    <input type="checkbox" ng-model="bBtn">
+    <div ng-show="bBtn" class="box"></div>
+</div>
+</body>
+</html>

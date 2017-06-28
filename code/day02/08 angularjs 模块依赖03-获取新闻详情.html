@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-sanitize.js"></script>
+
+
+</head>
+<body ng-app="myApp">
+        <div ng-controller="firstController">
+
+            <!--<span ng-bind-html="title"></span>-->
+
+            <button ng-click="getData(12)">获取新闻详情12</button>
+
+            <button ng-click="getData(109)">获取新闻详情109</button>
+
+
+            <button ng-click="getData(120)">获取新闻详情120</button>
+
+            <button ng-click="getData(30)">获取新闻详情30</button>
+
+
+            <br/>
+            <br/>
+            <hr/>
+            <br/>
+
+
+            <div>
+
+                <h1>{{item.title}}</h1>
+                <div ng-bind-html="item.content">
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+</body>
+
+</html>
+
+<script>
+
+var app=angular.module('myApp',['ngSanitize']);
+
+app.controller('firstController',function($scope,$http){
+    $scope.title='<h2>张三</h2>';
+    $scope.item='';
+
+    $scope.getData=function(aid){
+
+
+        /*请求数据获取新闻请求  后台允许跨域请求 所以get也能获取*/
+        var url='http://www.phonegap100.com/appapi.php?a=getPortalArticle&aid='+aid;
+        $http.get(url).then(function(rel){
+            console.log(rel);
+
+            $scope.item=rel.data.result[0];
+
+            console.log($scope.item);
+
+
+        },function(){
+
+        })
+    }
+
+});
+
+
+
+</script>
+
+

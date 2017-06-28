@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <style>
+
+        .box{
+            background: red;
+        }
+
+        .w200{
+            width: 200px;
+            height: 200px;
+        }
+        .w300{
+            width: 300px;
+            height: 300px;
+        }
+        .blue{
+            color:blue;
+            width: 200px;
+            height: 200px
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+            <input type="button" value="宽度200" ng-click="change('200')"/>
+            <input type="button" value="宽度300" ng-click="change('300')"/>
+            <input type="button" value="变为蓝色" ng-click="change('blue')"/>
+            <br/><br/>
+            <div class="box" ng-class="{w200:w2,w300:w3,blue:bl}">
+                这是一个box
+            </div>
+            
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+    app.controller('firstController',function($scope,$interval){
+
+        $scope.w2=false;
+        $scope.w3=false;
+        $scope.bl=false;
+        $scope.change=function(val){
+            if(val=='200'){
+                $scope.w2=true;
+                $scope.w3=false;
+                $scope.bl=true;
+
+            }else if(val=='300'){
+                $scope.w2=false;
+                $scope.w3=true;
+                $scope.bl=false;
+            }else if(val=='blue'){
+                $scope.w2=false;
+                $scope.w3=false;
+                $scope.bl=true;
+
+            }
+
+
+        }
+
+
+
+    })
+
+</script>

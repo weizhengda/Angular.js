@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="angular.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+        <div ng-controller="firstController">
+
+            <!--{{str | reverse}}-->
+
+            {{msg | hello}}
+
+            {{msg | hello:'111':'222'}}
+        </div>
+
+</body>
+</html>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+
+//    console.log(app);
+
+    app.controller('firstController',function($scope){
+
+        $scope.str="我是代码搬砖工";
+
+        $scope.msg="hello angular";  //你好angular
+
+        /*工砖砖搬码代是我*/
+
+        console.log($scope.str.split('').reverse().join(''));
+
+        console.log($scope.msg.replace('hello','你好'));
+
+    });
+
+    /*自定义过滤器*/
+
+    app.filter('hello',function(){
+        return function(input,n1,n2){
+            console.log(input+'--'+n1+'--'+n2);
+
+            return input.replace('hello','你好')
+
+        }
+    })
+
+
+
+
+</script>
